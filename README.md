@@ -218,8 +218,8 @@ Retrieve all ship positions from January 2022:
 SELECT geom 
 FROM ais_navigation
 WHERE time_stamp 
-	BETWEEN timestamp '2022-01-01 00:00:00.000'
-	AND	    timestamp '2022-01-31 23:59:59.999';
+    BETWEEN timestamp '2022-01-01 00:00:00.000'
+    AND	    timestamp '2022-01-31 23:59:59.999';
 ```
 
 More info on [time types](https://www.monetdb.org/documentation/user-guide/sql-manual/data-types/temporal-types/)
