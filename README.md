@@ -134,7 +134,7 @@ CREATE TABLE wkt_import (
 );
 
 COPY INTO wkt_import(wkt_string,wkt_geom)
-FROM '/path/to/data/wkt_import.csv (wkt_string)
+FROM '/path/to/data/wkt_import.csv' (wkt_string)
 DELIMITERS ',', '\n', '"' NULL AS '';
 
 UPDATE wkt_import SET wkt_geom = ST_GeomFromText(wkt_string);
