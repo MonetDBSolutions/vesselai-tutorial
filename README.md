@@ -176,8 +176,7 @@ columns. Instead, only if you are sure that all the atoms in your column
 have the same SRID you could instead do
 ```sql
 UPDATE ais_navigation 
-   SET geom_3035 = InternalTransform(geom, 4326, 3035,
-                                     getProj4(4326), getProj4(3035));
+   SET geom_3035 = InternalTransform(geom, 4326, 3035, getProj4(4326), getProj4(3035));
 ```
 to be sure that your source column has indeed the same SRID for all of
 its atoms you will have to get exactly one row, with the SRID and the
@@ -436,6 +435,7 @@ use the `ST_AsText()` function.
 ## Geometric Functions Support
 
 ### OGC SF Types
+
 - Point
 - Linestring
 - Polygon
@@ -445,95 +445,105 @@ use the `ST_AsText()` function.
 - GeometryCollection
  
 ### OGC SF Functions
+
 #### Input/Output
-- ST_WKTToSQL/ST_GeomFromText
-- ST_WKBToSQL
-- ST_AsText
-- ST_AsBinary
-- ST_Point/ST_MakePoint
-- ST_MakeLine
-- ST_AsEWKT
+
+- ST\_WKTToSQL/ST\_GeomFromText
+- ST\_WKBToSQL
+- ST\_AsText
+- ST\_AsBinary
+- ST\_Point/ST\_MakePoint
+- ST\_MakeLine
+- ST\_AsEWKT
 
 #### Functions on Geometries
-- ST_Dimension
-- ST_GeometryType
-- ST_SRID
-- ST_SetSRID
-- ST_IsEmpty
-- ST_IsSimple
-- ST_Boundary
-- ST_Envelope
-- ST_Intersection
-- ST_Difference
-- ST_Union
-- ST_SymDifference
-- ST_Buffer
-- ST_ConvexHull
-- ST_Equals
-- ST_Disjoint
-- ST_Touches
-- ST_Crosses
-- ST_Within
-- ST_Contains
-- ST_Overlaps
-- ST_Relate
-- ST_Distance
+
+- ST\_Dimension
+- ST\_GeometryType
+- ST\_SRID
+- ST\_SetSRID
+- ST\_IsEmpty
+- ST\_IsSimple
+- ST\_Boundary
+- ST\_Envelope
+- ST\_Intersection
+- ST\_Difference
+- ST\_Union
+- ST\_SymDifference
+- ST\_Buffer
+- ST\_ConvexHull
+- ST\_Equals
+- ST\_Disjoint
+- ST\_Touches
+- ST\_Crosses
+- ST\_Within
+- ST\_Contains
+- ST\_Overlaps
+- ST\_Relate
+- ST\_Distance
 
 #### Functions on Point
-- ST_X
-- ST_Y
-- ST_Z
+
+- ST\_X
+- ST\_Y
+- ST\_Z
 
 #### Functions on Linestring
-- ST_StartPoint
-- ST_EndPoint
-- ST_IsRing
-- ST_Length
-- ST_IsClosed
-- ST_NumPoints
-- ST_PointN
 
-- ST_Centroid
-- ST_PointOnSurface
-- ST_Area
+- ST\_StartPoint
+- ST\_EndPoint
+- ST\_IsRing
+- ST\_Length
+- ST\_IsClosed
+- ST\_NumPoints
+- ST\_PointN
+
+
+- ST\_Centroid
+- ST\_PointOnSurface
+- ST\_Area
 
 #### Functions on Polygon
-- ST_ExteriorRing
-- ST_SetExteriorRing
-- ST_NumInteriorRing
-- ST_InteriorRingN
-- ST_InteriorRings
+
+- ST\_ExteriorRing
+- ST\_SetExteriorRing
+- ST\_NumInteriorRing
+- ST\_InteriorRingN
+- ST\_InteriorRings
 
 #### Functions on GeometryCollection
-- ST_NumGeometries
-- ST_GeometryN
+
+- ST\_NumGeometries
+- ST\_GeometryN
 
 ### Other supported functions
-- ST_Distance
-- ST_DistanceGeographic
-- ST_DWithin
-- ST_DWithinGeographic
-- ST_Intersects
-- ST_IntersectsGeographic
-- ST_Collect
-- ST_Transform
+
+- ST\_Distance
+- ST\_DistanceGeographic
+- ST\_DWithin
+- ST\_DWithinGeographic
+- ST\_Intersects
+- ST\_IntersectsGeographic
+- ST\_Collect
+- ST\_Transform
 - InternalTransform
 - GetProj4
 
-- ST_CoordDim
-- ST_IsValid
-- ST_NPoints
-- ST_NRings
-- ST_NumInteriorRings
-- ST_XMax
-- ST_XMin
-- ST_YMax
-- ST_YMin
-- ST_Segmentize
-- ST_Translate
-- ST_Covers
-- ST_CoveredBy
-- ST_DelaunayTriangles
-- ST_Dump
-- ST_DumpPoints
+
+- ST\_CoordDim
+- ST\_IsValid
+- ST\_NPoints
+- ST\_NRings
+- ST\_NumInteriorRings
+- ST\_XMax
+- ST\_XMin
+- ST\_YMax
+- ST\_YMin
+- ST\_Segmentize
+- ST\_Translate
+- ST\_Covers
+- ST\_CoveredBy
+- ST\_DelaunayTriangles
+- ST\_Dump
+- ST\_DumpPoints
 
