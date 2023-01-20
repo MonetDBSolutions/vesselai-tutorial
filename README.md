@@ -171,6 +171,24 @@ another representation, use:
 UPDATE ais_navigation SET geom_3035 = st_transform(geom, 3035);
 ```
 
+**Note**: the `ST_Transform()` will **not** be performant for long
+columns. Instead, only if you are sure that all the atoms in your column
+have the same SRID you could instead do
+```sql
+UPDATE ais_navigation 
+   SET geom_3035 = InternalTransform(geom, 4326, 3035,
+                                     getProj4(4326), getProj4(3035));
+```
+to be sure that your source column has indeed the same SRID for all of
+its atoms you will have to get exactly one row, with the SRID and the
+number of the corresponding rows, after executing the next query
+```sql
+SELECT st_srid(geom) AS srid,
+       count(*) AS num_atoms
+ FROM ais_navigation
+GROUP BY srid;
+```
+
 ### Geometry vs Geography
 
 The difference between handling cartesian and geodetic data is an
@@ -315,7 +333,19 @@ database.
 - `ST_Transform(geometry GEOMETRY, new_srid INT) RETURNS GEOMETRY`:
   Projects the original geometry into a new reference system, given in
   the `new_srid` parameter. Can be used to convert geodetic data into
-  geometric data.
+  geometric data. If a column with the same SRID for all its atoms is
+  used in the `geometry` argument and `new_srid` is a single target SRID
+  then use `InternalTransform()`.
+- `InternalTransform(geometry GEOMETRY, old_srid INT, new_srid INT,
+  old_proj4 STRING, new_proj4 STRING) RETURNS GEOMETRY`:
+  Same as `ST_Transform()` with the difference that is much faster for
+  column argument `geometry` given that all the atoms have the same SRID
+  and that the `new_srid` is a single value. For the `old_proj4` and
+  `new_proj4` arguments you can simply call the `getProj4()` functions
+  that is described next.
+- `GetProj4(srid INT) RETURNS STRING`: Returns a string with the Proj4
+  compatible reference system for the given SRID. To be used **ONLY**
+  with the `InternalTransform()`.
 
 ### Use Case: Aggregating trajectories
 
@@ -485,8 +515,10 @@ use the `ST_AsText()` function.
 - ST_DWithinGeographic
 - ST_Intersects
 - ST_IntersectsGeographic
-- ST_Transform
 - ST_Collect
+- ST_Transform
+- InternalTransform
+- GetProj4
 
 - ST_CoordDim
 - ST_IsValid
